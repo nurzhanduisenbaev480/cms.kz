@@ -21,5 +21,7 @@ class Cms
     /**
      *
      */
-    public function run(){}
+    public function run(){
+        echo "Hello moto";
+    }
 }
