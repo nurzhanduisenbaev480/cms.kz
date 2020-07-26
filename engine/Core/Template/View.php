@@ -5,7 +5,14 @@ use Engine\Core\Template\Theme;
 
 class View
 {
+    /**
+     * @var \Engine\Core\Template\Theme
+     */
     protected $theme;
+
+    /**
+     * View constructor.
+     */
     public function __construct()
     {
         $this->theme = new Theme();
@@ -17,7 +24,7 @@ class View
      * @throws \Exception
      */
     public function render($template, $vars = []){
-        $templatePath = ROOT_DIR . '/content/themes/default/' . $template . '.php';
+        $templatePath = $this->getTemplatePath($template, ENV);
 
         if (!is_file($templatePath)){
             throw new \InvalidArgumentException(
@@ -36,5 +43,23 @@ class View
             throw $exception;
         }
         echo ob_get_clean();
+    }
+
+    /**
+     * @param $template
+     * @param null $env
+     * @return string
+     */
+    private function getTemplatePath($template, $env = null){
+        switch ($env){
+            case 'Admin':
+                return ROOT_DIR . '/View/' . $template . '.php';
+                break;
+            case 'Cms':
+                return ROOT_DIR . '/content/themes/default/' . $template . '.php';
+                break;
+            default:
+                return ROOT_DIR . '/View/' . $template . '.php';
+        }
     }
 }
