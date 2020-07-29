@@ -2,7 +2,7 @@
 
 namespace Engine\Core\Database;
 use \PDO;
-
+use Engine\Core\Config\Config;
 class Connection
 {
     /**
@@ -20,16 +20,10 @@ class Connection
 
     /**
      * @return $this
+     * @throws \Exception
      */
     private function connect(){
-        //$config = require_once 'config.php';
-        $config = [
-            'host' => 'localhost',
-            'dbname' => 'mysql',
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8'
-        ];
+        $config = Config::file('database');
         $dsn = 'mysql:host='.$config['host'].
             ';dbname='.$config['dbname'].
             ';charset='.$config['charset'];
@@ -39,20 +33,22 @@ class Connection
 
     /**
      * @param $sql
+     * @param array $values
      * @return mixed
      */
-    public function execute($sql){
+    public function execute($sql, $values = []){
         $sth = $this->link->prepare($sql);
-        return $sth->execute();
+        return $sth->execute($values);
     }
 
     /**
      * @param $sql
+     * @param array $values
      * @return array
      */
-    public function query($sql){
+    public function query($sql, $values = []){
         $sth = $this->link->prepare($sql);
-        $sth->execute();
+        $sth->execute($values);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         if ($result === false){
             return [];

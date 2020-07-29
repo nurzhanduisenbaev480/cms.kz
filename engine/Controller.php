@@ -18,6 +18,14 @@ abstract class Controller
      * @var $view
      */
     protected $view;
+    /**
+     * @var $config
+     */
+    protected $config;
+    /**
+     * @var $request
+     */
+    protected $request;
 
     /**
      * Controller constructor.
@@ -25,9 +33,11 @@ abstract class Controller
      */
     public function __construct(DI $di)
     {
-        $this->di = $di;
-        $this->db = $this->di->get('db');
-        $this->view = $this->di->get('view');
+        $this->di           = $di;
+        $this->db           = $this->di->get('db');
+        $this->view         = $this->di->get('view');
+        $this->config       = $this->di->get('config');
+        $this->request      = $this->di->get('request');
     }
 
 }
