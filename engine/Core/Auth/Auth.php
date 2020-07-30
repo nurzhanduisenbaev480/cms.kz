@@ -16,19 +16,18 @@ class Auth implements AuthInterface
     public function authorized(){
         return $this->authorized;
     }
+    /**
+     *
+     */
+    public function setAuthorize(){
+        $this->authorized = true;
+    }
 
     /**
      * @return mixed
      */
     public function hashUser(){
         return Cookie::get('auth_user');
-    }
-
-    /**
-     *
-     */
-    public function setAuthorize(){
-        $this->authorized = true;
     }
     /**
      * User Authorization

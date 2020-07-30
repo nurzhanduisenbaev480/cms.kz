@@ -23,7 +23,7 @@ class LoginController extends Controller
 
         if ($this->auth->hashUser() !== null){
             header('Location: /admin/');
-            exit;
+            exit();
         }
     }
 
@@ -58,9 +58,8 @@ class LoginController extends Controller
                 $this->db->execute($sql, $queryBuilder->values);
 
                 $this->auth->authorize($hash);
-
                 header('Location: /admin/login/');
-                exit;
+                exit();
             }
         }
     }
