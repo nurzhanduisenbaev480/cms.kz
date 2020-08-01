@@ -21,7 +21,6 @@
     <!-- Redactor CSS -->
     <link rel="stylesheet" href="/admin/Assets/js/plugins/redactor/redactor.css">
 </head>
-
 <body>
 <header>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -29,27 +28,35 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">Admin CMS</a>
+            <a class="navbar-brand" href="/admin/">Admin CMS</a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            <i class="icon-speedometer icons"></i> Home
+                        <a class="nav-link" href="/admin/">
+                            <i class="icon-speedometer icons"></i>
+                            Home
+<!--                            --><?//= $lang->dashboardMenu['pages']?>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/pages/">
-                            <i class="icon-doc icons"></i> Pages
+                            <i class="icon-doc icons"></i>
+                            Pages
+<!--                            --><?//=$lang->dashboardMenu['pages'] ?>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/posts/">
-                            <i class="icon-pencil icons"></i> Posts
+                            <i class="icon-pencil icons"></i>
+                            Posts
+<!--                            --><?//= $lang->dashboardMenu['posts'] ?>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link">
-                            <i class="icon-equalizer icons"></i> Settings
+                        <a class="nav-link" href="/admin/settings/general/">
+                            <i class="icon-equalizer icons"></i>
+                            Settings
+<!--                            --><?//= $lang->dashboardMenu['settings'] ?>
                         </a>
                     </li>
                 </ul>

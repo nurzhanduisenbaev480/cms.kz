@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/Function.php';
 use Engine\Cms;
 use Engine\DI\DI;
 
@@ -13,7 +14,7 @@ try{
         $provider = new $service($di);
         $provider->init();
     }
-
+    $di->set('model', []);
     $cms = new Cms($di);
     $cms->run();
 

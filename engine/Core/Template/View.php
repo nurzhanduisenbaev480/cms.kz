@@ -2,9 +2,14 @@
 
 namespace Engine\Core\Template;
 use Engine\Core\Template\Theme;
+use Engine\DI\DI;
 
 class View
 {
+    /**
+     * @var DI
+     */
+    public $di;
     /**
      * @var \Engine\Core\Template\Theme
      */
@@ -12,18 +17,20 @@ class View
 
     /**
      * View constructor.
+     * @param DI $di
      */
-    public function __construct()
+    public function __construct(DI $di)
     {
+        $this->di = $di;
         $this->theme = new Theme();
     }
 
     /**
      * @param $template
-     * @param array $vars
+     * @param array $data
      * @throws \Exception
      */
-    public function render($template, $vars = []){
+    public function render($template, $data = []){
         $templatePath = $this->getTemplatePath($template, ENV);
 
         if (!is_file($templatePath)){
@@ -31,8 +38,10 @@ class View
                 sprintf("Template '%s' not found in '%s'", $template, $templatePath)
             );
         }
-        $this->theme->setData($vars);
-        extract($vars);
+        $data['lang'] = $this->di->get('language');
+
+        $this->theme->setData($data);
+        extract($data);
 
         ob_start();
         ob_implicit_flush(0);
@@ -54,6 +63,7 @@ class View
         if ($env == 'Cms'){
             return ROOT_DIR . '/content/themes/default/' . $template . '.php';
         }
-        return ROOT_DIR . '/View/' . $template . '.php';
+        //28 urok 07min
+        return path('view') . '/' . $template . '.php';
     }
 }

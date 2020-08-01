@@ -1,6 +1,8 @@
 {
     "name": "nurzhan/cms.kz",
-    "require": {},
+    "require": {
+      "ext-json": "*"
+    },
     "autoload": {
         "psr-4": {
             "Engine\\": "engine",

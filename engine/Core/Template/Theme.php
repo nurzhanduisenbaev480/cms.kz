@@ -16,22 +16,20 @@ class Theme
      * Url current theme
      * @var $url
      */
-    public $url;
+    public $url = '';
     /**
      * @var $data
      */
-    protected $data;
+    protected $data = [];
     /**
      * @param null $name
      * @throws \Exception
      */
     public function header($name=null){
         $name = (string) $name;
-        $file = 'header';
-        if ($name !== ''){
-            $file = sprintf(self::RULES_NAME_FILE['header'], $name);
-        }
-        $this->loadTemplateFile($file);
+        $file = self::detectNameFile($name, __FUNCTION__);
+
+        Component::loadTemplateFile($file);
     }
 
     /**
@@ -40,11 +38,8 @@ class Theme
      */
     public function footer($name=null){
         $name = (string) $name;
-        $file = 'footer';
-        if ($name !== ''){
-            $file = sprintf(self::RULES_NAME_FILE['footer'], $name);
-        }
-        $this->loadTemplateFile($file);
+        $file = self::detectNameFile($name, __FUNCTION__);
+        Component::loadTemplateFile($file);
     }
 
     /**
@@ -53,11 +48,8 @@ class Theme
      */
     public function sidebar($name=null){
         $name = (string) $name;
-        $file = 'sidebar';
-        if ($name !== ''){
-            $file = sprintf(self::RULES_NAME_FILE['sidebar'], $name);
-        }
-        $this->loadTemplateFile($file);
+        $file = self::detectNameFile($name, __FUNCTION__);
+        Component::loadTemplateFile($file);
     }
 
     /**
@@ -68,28 +60,12 @@ class Theme
     public function block($name='', $data=[]){
         $name = (string) $name;
         if ($name !== ''){
-            $this->loadTemplateFile($name, $data);
+            Component::loadTemplateFile($name, $data);
         }
 
     }
-    /**
-     * @param $nameFile
-     * @param array $data
-     * @throws \Exception
-     */
-    private function loadTemplateFile($nameFile, $data=[]){
-        $templateFile = ROOT_DIR . '/content/themes/default/' . $nameFile . '.php';
-        if (ENV == 'Admin'){
-            $templateFile = ROOT_DIR . '/View/' . $nameFile . '.php';
-        }
-        if (is_file($templateFile)){
-            extract($data);
-            require_once $templateFile;
-        }else{
-            throw new \Exception(
-                sprintf('View file %s does not exist!!!', $templateFile)
-            );
-        }
+    private static function detectNameFile($name, $function){
+        return empty(trim($name)) ? $function : sprintf(self::RULES_NAME_FILE[$function], $name);
     }
 
     /**

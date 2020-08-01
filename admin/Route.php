@@ -20,3 +20,9 @@ $this->router->add('post-edit', '/admin/posts/edit/(id:int)','PostController:edi
 // Post Routes POST
 $this->router->add('post-add', '/admin/post/add/','PostController:add', 'POST');
 $this->router->add('post-update', '/admin/post/update/','PostController:update', 'POST');
+
+// Setting Routes GET
+$this->router->add('settings-general', '/admin/settings/general/','SettingController:general');
+
+// Setting Routes POST
+$this->router->add('settings-update', '/admin/settings/update/','SettingController:updateSetting', 'POST');
